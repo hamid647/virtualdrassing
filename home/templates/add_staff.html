@@ -1,0 +1,74 @@
+{% extends 'home.html'%}
+
+{% load static %}
+     
+{% block bootstrap %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+{% endblock bootstrap %} 
+
+{% block content %}
+      
+
+
+
+<div class="container mt-5">
+
+    <!-- SIGNUP section start -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-6 col-md-8 col-10 border p-3">
+            <h1 class="text-center">ADD NEW STAFF</h1>
+            <hr class="mx-auto" style="width: 80%;" >
+            
+            <form action="/add_staff" method="post">
+              {% csrf_token %}
+              <input required type="text" name="is_staff" value="True" hidden class="form-control cft1" placeholder="is staff">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <label for="First_Name" class="form-lable my-3">First Name</label>
+                        <input required type="text" name="firstname" class="form-control cft1" placeholder="Entar First Name">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="Last_Name" class="form-lable my-3">Last Name</label>
+                        <input required type="text" name="lastname" class="form-control cft1" placeholder="Entar Last Name">
+                    </div>
+                </div>
+                <div>
+                  <label for="username" class="form-label my-3">User Name</label>
+                  <input required type="text" name="username" class="form-control cft1" placeholder="Enter Your User Name" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text">User Name Must Be Unique</div>
+                </div>
+                <div>
+                  <label for="Email" class="form-label my-3">EMAIL ADDRESS<span class="red">*</span></label>
+                  <input required type="email" name="email" class="form-control cft1" placeholder="Enter Your Email Address" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text red ">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <label for="password1" class="form-label my-3">Password</label>
+                        <input required type="password" name="password1" class="form-control cft1" placeholder="Password">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="password2" class="form-label my-3">Confirm Password</label>
+                        <input required type="password" name="password2" class="form-control cft1" placeholder="Confirm Password">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div class="col3"> 
+                      <button class="btn cb1 my-3" >REGISTER</button>
+                  </div>
+                  <!-- <div class="col-7 mt-4">
+                      <a href="/login" class="l3">Already have an account?</a>
+                  </div> -->
+                </div>
+              </form>
+              
+              
+        </div>
+    </div>
+    <!-- SIGNUP section end -->
+
+</div>
+
+
+
+{% endblock content %}

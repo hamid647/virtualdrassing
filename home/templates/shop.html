@@ -1,0 +1,151 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block bootstrap %}
+{% endblock bootstrap %}
+
+
+{% block css %}
+        
+      <style>
+       .product{
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        object-fit: cover;
+       }
+
+       #featured > div.row.mx-auto.container>nav>ul> li.page-item.active>a{
+        background-color: black;
+       }
+
+       #featured > div.row.mx-auto.container>nav>ul>li:nth-child(n):hover>a{
+        background-color: coral;
+        color: #fff;
+
+       }
+
+       .pagination a{
+        color: #000;
+       }
+
+       .Href{
+        color: #000;
+        text-decoration: none;
+       }
+       .Href:hover{
+        color: #000;
+        text-decoration: none;
+       }
+       .page{
+        color: #000;
+       }
+       .page:hover{
+        color: #fff;
+        background-color: coral;
+       }
+      </style>
+{% endblock css %}
+
+          {% block content %}
+          <section id="featured" class="my-5">
+            <div class="container text-center mt-5 py-3">
+              <h2 class="font-weight-bold">Our Featured</h2>
+              <p>Here you can check out our products with fair price on BrandHub.</p>
+             <hr>
+             </div>
+
+             <div class="row mx-auto container">
+              
+              {% for add in page_obj %}
+              <div class="product text-center col-lg-3 col-md-4 col-12">
+                <a href="/view_product/{{add.id}}" class="Href">
+                  <img class="img-fluid mb-3e" src="{{add.img.url}}" alt="" style="width: 100%; height: 290px;">
+                  <div class="star">
+                    <i class="fas fa-solid fa-star"></i>
+                    <i class="fas fa-solid fa-star"></i>
+                    <i class="fas fa-solid fa-star"></i>
+                    <i class="fas fa-solid fa-star"></i>
+                    <i class="fas fa-solid fa-star"></i>
+                  </div>
+                  <h5 class="p-name">{{add.name}}</h5>
+                  <h4 class="p-price">${{add.price}}</h4>
+                  <button class="buy-btn">Buy Now</button>
+                </a>
+              </div>
+              {% endfor %}
+              
+
+
+
+          
+
+              
+             </div>
+
+          </section>
+
+
+          <nav aria-label="Page navigation example" class="mt-5">
+            <ul class="pagination justify-content-center"> 
+            
+              {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link page" href="?page=1" >&laquo; First</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link page" href="?page={{page_obj.previous_page_number}}">Previous</a>
+              </li>
+              {% endif %}
+            
+              {% if page_obj.number|add:'-2' >= 1 %}  
+              <li class="page-item">
+                <a class="page-link page" href="?page=1">1</a>
+              </li>
+              {% if page_obj.number > 3 %}
+              <li class="page-item">
+                <a class="page-link disabled page" href="?page={{page_obj.number|add:'-2'}}">&hellip;</a>
+              </li>
+              {% endif %}
+              {% endif %}
+            
+          
+              
+              {% for i in page_obj.paginator.page_range %}
+              {% if i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
+              <li class="page-item">
+                <a class="page-link page" href="?page={{ i }}" >{{ i }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+          
+              
+              {% if page_obj.paginator.num_pages >= page_obj.number|add:'2' %}
+              {% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
+              <li class="page-item">
+                <a class="page-link page" href="#">&hellip;</a>
+              </li>
+              {% endif %}
+          
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+              </li>
+              {% endif %}
+          
+          
+            
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link page" href="?page={{page_obj.next_page_number}}">Next</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link page" href="?page={{page_obj.paginator.num_pages}}">Last &raquo;</a>
+              </li>
+              
+              {% endif %}
+            
+          
+            </ul>
+          </nav>  
+          
+          {% endblock content %}

@@ -1,0 +1,189 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block bootstrap %}
+{% endblock bootstrap %}
+
+        {% block css %}
+        <style>
+         .small-img-group{
+          display: flex;
+          justify-content: space-between;
+         }
+         .small-img-col{
+          flex-basis: 24%;
+          cursor: pointer;
+         }
+
+         .sproduct select{
+          display: block;
+          padding: 5px 10px;
+         }
+
+         .sproduct input{
+          width: 50px;
+          height: 40px;
+          padding-left: 10px;
+          font-size: 16px;
+          margin-right: 10px;
+         }
+
+         .sproduct input:focus {
+          outline: none;
+         }
+
+         .buy-btn{
+          background-color: #fb774b;
+          opacity: 1;
+          transition: 0.3s all;
+
+         }
+         .buy-bn{
+          background-color: steelblue;
+          opacity: 2;
+          transition: 0.3s all;
+         }
+        
+        #main-image{
+          width: 100%;
+          height: 450px;
+        }
+        .thumbnail {
+          width: 100px;
+          height: 100px;
+          margin: 5px 2px 5px 2px;
+          cursor: pointer;
+        }
+        .Href{
+        color: #000;
+        text-decoration: none;
+       }
+       .Href:hover{
+        color: #000;
+        text-decoration: none;
+       }
+       .button{
+        font-size: 0.8rem;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    background-color: #1d1d1d;
+    color: aliceblue;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+       }
+       .button:hover{
+       
+        background-color: #3A3833;
+       }
+</style>
+        
+{% endblock css %}
+
+
+      {% block content %}
+
+              <section class="container sproduct my-5 ">
+                <div class="row mt-5">
+                <div class="col-lg-5 col-md-12 col-12">
+
+                  <div class="main-image-container">
+                    <img src="{{add.img.url}}" alt="Image 1" id="main-image">
+                </div>
+                <div>
+            
+                    <img src="{{add.img.url}}" alt="Image 1" class="thumbnail " onclick="setMainImage(this)">
+                  {% if add.img2 %}  <img src="{{add.img2.url}}" alt="Image 2" class="thumbnail" onclick="setMainImage(this)">{% endif %}
+                  {% if add.img3 %}  <img src="{{add.img3.url}}" alt="Image 3" class="thumbnail" onclick="setMainImage(this)">{% endif %}
+                  {% if add.img4 %}  <img src="{{add.img4.url}}" alt="Image 4" class="thumbnail" onclick="setMainImage(this)">{% endif %}
+                </div>
+
+                </div>
+
+                <div class="col-lg-5 col-md-12 col-12">
+                  <h3 class="py-4">{{add.name}}</h3>
+                  <h2>${{add.price}}</h2>
+                  
+                
+                <form action="/buy_now" method="post">
+                
+                  {% csrf_token %}
+                  <input type="text" name="id" value="{{add.id}}" hidden>
+                  <input type="text" name="username" value="{{user.username}}" hidden>
+                  <input type="text" name="name" value="{{add.name}}" hidden>
+                  <input type="text" name="price" value="{{add.price}}" hidden>
+
+                  <input type="number" name="quantity" value="1" min="1" step="1">
+                  <button class="buy-btn">Buy Now</button>
+                  <a href="/try_now/{{add.id}}" class="button">Try it now </a>
+                  <!-- <a href="/buy_now/{{add.id}}&{{user.username}}&{{add.name}}&{{add.price}}&{{add.price}}"><button class="buy-btn">Buy Now</button></a> -->
+                </form>
+                  <!-- <button id="start-webcam-button">Try it now </button> -->
+                  
+                  <div id="webcam-container">
+                    <video id="webcam" autoplay></video>
+
+                  </div>
+                  <h4 class="mt-5 mb-5">Product Details</h4>
+                  <span>{{add.discription}}</span>
+                </div>    
+                 </div>  
+              </section>
+
+              <section id="featured" class="my-5 pb-5">
+                <div class="container text-center mt-5 py-5">
+                  <h3>Related products</h3>
+                  <hr>
+                 </div>
+    
+                 <div class="row mx-auto container-fluid">
+                  {% for rad in dests %}
+                  <div class="product text-center col-lg-3 col-md-4 col-12">
+                    <a href="/view_product/{{rad.id}}" class="Href">
+                      <img class="img-fluid mb-3" src="{{rad.img.url}}" alt="" style="width: 100%; height: 290px;">
+                      <div class="star">
+                        <i class="fas fa-solid fa-star"></i>
+                        <i class="fas fa-solid fa-star"></i>
+                        <i class="fas fa-solid fa-star"></i>
+                        <i class="fas fa-solid fa-star"></i>
+                        <i class="fas fa-solid fa-star"></i>
+                      </div>
+                      <h5 class="p-name">{{rad.name}}</h5>
+                      <h4 class="p-price">${{rad.price}}</h4>
+                      <button class="buy-btn">Buy Now</button>
+                    </a>
+                  </div>
+                  {% endfor %}
+                  
+                 </div>
+    
+              </section>
+
+              {% endblock content %}
+              
+              {% block js %}
+              <script>
+                function setMainImage(image) {
+                var mainImage = document.getElementById('main-image');
+                mainImage.src = image.src;
+                mainImage.alt = image.alt;
+              }
+
+
+              // get the start
+          const startWebcamButton = document.getElementById("start-webcam-button");
+          const webcam = document.getElementById("webcam");
+          startWebcamButton.addEventListener("click",() =>{
+            navigator.mediaDevices.getUserMedia({video: true})
+            .then(stream =>{
+              webcam.srcObject= stream;
+
+            })
+            .catch(error => {
+              console.error("Error accessing webcam:", error);
+            });
+          });
+              </script>
+              {% endblock js %}
+            

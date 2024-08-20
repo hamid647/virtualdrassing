@@ -1,0 +1,149 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block bootstrap %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+{% endblock bootstrap %}  
+
+{% block css %}
+
+{% endblock css %}
+{% block content %}
+      
+
+
+
+<!-- manage section start  -->
+<div class="container">
+    <div class="row mt-5 justify-content-between ">
+        <div class="container">
+            <h1 class="h1 text-center">Manage Products</h1>
+        </div>
+        
+    </div>
+  <div>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Catagorie</th>
+          <th scope="col">Price</th>
+          <th scope="col">Enable/Disable</th>
+          <th scope="col">Actions</th>
+          <th ><a href="/add_product"  class="btn cb1 me-2">Add Product</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+        {% for add in page_obj %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{add.name}}</td>          
+          <td><a href="/view_product/{{add.id}}"><img src="{{add.img.url}}" class="manage_img" alt="img"></a></td>
+          <td>{{add.catagory}}</td>
+          <td>{{add.price}}</td>
+          <td>
+            
+            {% if add.disable == False %}
+            <form action="/disable/{{add.id}}" method="post"">
+              {% csrf_token %}
+              <input type="text" name="disable" value="True" hidden>
+              <button class="btn Disable ">Disable</button>  
+            </form>
+            {% else %}
+            <form action="/disable/{{add.id}}" method="post"">
+              {% csrf_token %}
+              <input type="text" name="disable" value="False" hidden>
+              <button class="btn Enable me-2">Enable</button>  
+            </form>
+            {% endif %}
+            
+          </td>
+          <td>
+            <a href="/edit/{{add.id}}"><button class="btn cb1">Edit</button></a>
+            <a href="/delete_product/{{add.id}}"><button class="btn cb1">Delete</button></a>
+          </td>
+        </tr>
+        
+        
+        
+        
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- manage section End  -->
+
+
+
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center"> 
+  
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" >&laquo; First</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+    </li>
+    {% endif %}
+  
+    {% if page_obj.number|add:'-2' >= 1 %}  
+    <li class="page-item">
+      <a class="page-link" href="?page=1">1</a>
+    </li>
+    {% if page_obj.number > 3 %}
+    <li class="page-item">
+      <a class="page-link disabled" href="?page={{page_obj.number|add:'-2'}}">&hellip;</a>
+    </li>
+    {% endif %}
+    {% endif %}
+  
+
+    
+    {% for i in page_obj.paginator.page_range %}
+    {% if i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    
+    {% if page_obj.paginator.num_pages >= page_obj.number|add:'2' %}
+    {% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
+    <li class="page-item">
+      <a class="page-link " href="#">&hellip;</a>
+    </li>
+    {% endif %}
+
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+    </li>
+    {% endif %}
+
+
+  
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Last &raquo;</a>
+    </li>
+    
+    {% endif %}
+  
+
+  </ul>
+</nav>
+
+
+{% endblock content %}

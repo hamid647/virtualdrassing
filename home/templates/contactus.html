@@ -1,0 +1,127 @@
+{% extends "home.html" %}
+{% load static %}      
+
+{% block bootstrap %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+{% endblock bootstrap %}
+
+{% block css %}
+<style>
+
+
+.cft1{
+  border-radius: 0%;
+ }
+ .cb1{
+  color: coral;
+  border: 1px solid coral;
+ }
+ .cb1:hover{
+  background-color: coral;
+  color: white;
+ }
+ .cr1{
+  background-color: #F2F2F2;
+  
+ }
+ .login:hover{
+  color: chocolate;
+  text-decoration: none;
+ }
+ .hr{
+    width: 100%; 
+     
+    border: none; 
+    background-color: #BEBFC0;
+ }
+</style>
+
+{% endblock css %}
+
+<!-- contact us section start -->
+{% block content %}
+<!-- Map Section start -->
+<div class="container mt-5">
+    <div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.4203153404724!2d73.15556797450536!3d31.45762205024152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3922691f5e0fa2b3%3A0x3adfcd42fe315ba5!2sThe%20University%20of%20Faisalabad%20-%20Amin%20Campus!5e0!3m2!1sen!2s!4v1684077197614!5m2!1sen!2s"
+       width="100%" height="350" style="border:0;" allowfullscreen="" 
+       loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d715.8562830999235!2d73.09871694847571!3d31
+        .408458750167885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x392269802bb0af37%3A0x75b008fae1fed4a7!2z
+        UmV4IENpdHkgUGxhemEg2LHbjNqp2LMg2LPZuduMINm-2YTYp9iy24E!5e0!3m2!1sen!2s!4v1661097977970!5m2!1sen!2s" 
+        width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy=
+        "no-referrer-when-downgrade"></iframe> -->
+    </div>
+</div>
+<!-- Map section end -->
+
+<!-- ContactUS section start -->
+<div class="container">
+    <div class="row mt-5 justify-content-between">
+        <!-- Left side start -->
+        <div class="col-12 col-lg-6 mb-3">
+            <h1 class="font-bold text-3xl">Tell Us Your Message</h1>
+            <form action="#" method="post">
+              {% csrf_token %}
+              <div>
+                <label for="Name" class="form-label my-3">Your Name <span class="red">*</span></label>
+                <input type="text" name="name" class="form-control cft1" maxlength="100" placeholder="Enter Your Name">
+              </div>
+              <div>
+                <label for="Email" class="form-label my-3">Your Email <span class="red">*</span></label>
+                <input type="email" name="email" class="form-control cft1" placeholder="Enter Your Email" >
+              </div>
+              <div>
+                <label for="Subject" class="form-label my-3">Subject</label>
+                <input type="text" name="subject" class="form-control cft1" maxlength="200" placeholder="Enter Your Subject">
+              </div>
+              <div>
+                <label for="Message" class="form-label my-3">Details</label>
+                <textarea class="form-control cft1" id="exampleFormControlTextarea1" rows="6" name="message" maxlength="500"></textarea>
+              </div>
+              <button class="btn cb1 my-3">SEND</button>
+            </form>
+        </div>
+        <!-- left side end  -->
+        <!-- Right side start  -->
+        <div class="col-12 col-lg-5 cr1 mb-3">
+          <div class="m-3">
+            <h1 class="font-bold text-3xl ">Contact Us</h1>
+            <P class="my-4 cf1">
+              Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum
+              est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas
+              human.
+            </P>
+            <h5 class="font-bold text-2xl my-4"><i class="fa-solid fa-house-building"></i> Address</h5>
+            <p class="my-2 cf1">123 Main Street, Anytown, CA 12345 - USA</p>
+            <hr class="hr">
+            <h5 class="font-bold text-2xl my-4"><i class="fa-solid fa-phone"></i> Phone</h5>
+            <p class="my-4 cf1">
+              Mobile: (08) 123 456 789
+              <br>
+              <br>
+              Hotline: 1009 678 456
+            </p>
+            <hr class="hr">
+            <h5 class="font-bold text-2xl my-4"><i class="fa-solid fa-envelope"></i> Email</h5>
+            <p class="my-4 cf1">
+              yourmail@domain.com
+              <br>
+              <br>
+              support@hastech.company
+            </p>
+          </div>
+        </div>
+        <!-- Right side End  -->
+    </div>
+</div>
+<!-- ContactUS section End -->
+
+
+
+<!-- contact us section End -->
+
+{% endblock content %}
+
+
+
